@@ -5,15 +5,9 @@
 #define LENGTH_ERROR -1
 #define VALUE_ERROR -2
 #define INVAILD_CHAR -3
-#define NULL_POINT -4
 
 int inet_aton(const char *cp, unsigned int *lp)
 {
-	if(cp == NULL)
-	{
-		return NULL_POINT;
-	}
-
 	int dots = 0;
     unsigned long singleSum = 0, totalSum = 0;
 	

@@ -4,17 +4,16 @@
 
 PARAM gParam;
 TESTFW_CTX gTestCtx;
-//CASE* caseTest = NULL;
 
-void registerFunc(char* fpath, int fileModel, int structSize, parseTestCase parse, unitTestFunc unitTest)
+void registerFunc(char* fpath, int structSizeOrArraySize, parseTestCase parse, unitTestFunc unitTest)
 {
-	gTestCtx.structSize = structSize;
+	gTestCtx.structSizeOrArraySize = structSizeOrArraySize;
 	gTestCtx.parse = parse;
 	gTestCtx.unitTest = unitTest;
 	gTestCtx.fpath = fpath;
-	gTestCtx.fileModel = fileModel;
 }
 
+/* 统计文件行数即测试用例的个数 */
 int countFile(FILE *fp)
 {
 	char ch;
@@ -24,50 +23,41 @@ int countFile(FILE *fp)
 	{
         if(ch=='\n') count++;   
     }
-	//printf("%d\n",count + 1);
+
 	rewind(fp);
 	return count + 1;
 }
 
 int initial()
 {
+	gParam.fp = fopen(gTestCtx.fpath, "r");
 
-	FILE *fp = fopen(gTestCtx.fpath, "r");
-	gParam.fp = fp;
-
-	if(fp == NULL)
+	if(gParam.fp == NULL)
 	{
 		printf("file open error\n");
 		return 0;
 	}
 
-	//fscanf(fp, "%d", &gParam.count);
 	gParam.count = countFile(gParam.fp);
 
-	gParam.caseTest = (void *)malloc(gTestCtx.structSize * gParam.count);
-	//gParam.caseTest = caseTest;
-	return 0;
+	gParam.caseTest = (void *)malloc(gTestCtx.structSizeOrArraySize * gParam.count);
 
-	
+	return 0;	
 }
 
+/* 用于文件测试，将文件里面的数据按行读入struct数组中 */
 void parseDataToStruct()
 {
-	char ch;
 	int idx = 0;
 
 	while(idx < gParam.count)
 	{
-	/*	ch = fgetc(gParam.fp);
-
-		if(ch == EOF) break;
-*/
 		gTestCtx.parse((void*)(&gParam), idx);
-
 		idx++;
 	}
 }
 
+/* 用于文件测试，关闭打开的文件和释放申请的内存 */
 void destory()
 {
 	fclose(gParam.fp);
@@ -81,16 +71,29 @@ void destory()
 
 int testFramework()
 {
-	initial();
-
-	parseDataToStruct();
-
-	for(int i = 0; i < gParam.count; i++)
+	/* 测试用例为文件形式 */
+	if(gTestCtx.fpath != "")
 	{
-		gTestCtx.unitTest(gParam.caseTest, i);
-	}
+		initial();
 
-	destory();
+		parseDataToStruct();
+
+		for(int i = 0; i < gParam.count; i++)
+		{
+			gTestCtx.unitTest(gParam.caseTest, i);
+		}
+
+		destory();
+	}
+	/* 测试用例为数组*/
+	else 
+	{
+		for(int i = 0; i < gTestCtx.structSizeOrArraySize; i++)
+		{
+			/* 为保持数组测试与文件测试方式一致，这里将指针传NULL */
+			gTestCtx.unitTest(NULL, i);
+		}
+	}
 
 	return 0;
 }

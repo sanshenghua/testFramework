@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include"str2hex.h"
 
  int str2hex( const char str[],  char hexStr[], unsigned int sLen, unsigned int hLen)
  {
@@ -45,12 +46,3 @@
 
       return 0;
  }
-
- //int main(int argc, char const *argv[])
- //{
- //    char source[100]="H\0*l00";
- //    char dest[100]={0};
- //    str2hex(source,dest,5,12);
- //    puts(dest);
- //    return 0;
- //}//48656C6C6F00776F726C64

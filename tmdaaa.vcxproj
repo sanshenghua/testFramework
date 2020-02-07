@@ -78,6 +78,7 @@
     <ClCompile Include="unitTest_str2hex.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="data.txt" />
     <Text Include="inet_aton.txt" />
     <Text Include="str2hex.txt" />
   </ItemGroup>
