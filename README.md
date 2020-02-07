@@ -4,5 +4,5 @@
 # 用于向测试框架注册信息和函数
 registerFunc(fpath, structSize, parseTestCaseB, unitTestFuncB);
 
-#框架会打开测试文件，控制测试流程，展示测试结果
+# 框架会打开测试文件，控制测试流程，展示测试结果
 testFramework();
