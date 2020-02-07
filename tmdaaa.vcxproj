@@ -70,9 +70,11 @@
   <ItemGroup>
     <ClCompile Include="inet_aton.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="bit_rotate.h" />
     <ClCompile Include="str2hex.cpp" />
     <ClCompile Include="testFrame.cpp" />
     <ClCompile Include="test_inet_aton.cpp" />
+    <ClCompile Include="unitTest_bit_rotate.cpp" />
     <ClCompile Include="unitTest_str2hex.cpp" />
   </ItemGroup>
   <ItemGroup>

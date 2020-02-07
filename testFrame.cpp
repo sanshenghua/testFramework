@@ -6,12 +6,13 @@ PARAM gParam;
 TESTFW_CTX gTestCtx;
 //CASE* caseTest = NULL;
 
-void registerFunc(char* fpath, int structSize, parseTestCase parse, unitTestFunc unitTest)
+void registerFunc(char* fpath, int fileModel, int structSize, parseTestCase parse, unitTestFunc unitTest)
 {
 	gTestCtx.structSize = structSize;
 	gTestCtx.parse = parse;
 	gTestCtx.unitTest = unitTest;
 	gTestCtx.fpath = fpath;
+	gTestCtx.fileModel = fileModel;
 }
 
 int countFile(FILE *fp)
@@ -30,13 +31,14 @@ int countFile(FILE *fp)
 
 int initial()
 {
+
 	FILE *fp = fopen(gTestCtx.fpath, "r");
 	gParam.fp = fp;
 
 	if(fp == NULL)
 	{
 		printf("file open error\n");
-        return 0;
+		return 0;
 	}
 
 	//fscanf(fp, "%d", &gParam.count);
@@ -44,8 +46,9 @@ int initial()
 
 	gParam.caseTest = (void *)malloc(gTestCtx.structSize * gParam.count);
 	//gParam.caseTest = caseTest;
-
 	return 0;
+
+	
 }
 
 void parseDataToStruct()

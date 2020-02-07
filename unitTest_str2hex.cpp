@@ -122,14 +122,14 @@ void unitTestFuncA(void* testCase, int idx)
 
 
 
-int main()
-{
-	char* fpath = "str2hex.txt";
-	int structSize = sizeof(CASE_3);
-
-	registerFunc(fpath, structSize, parseTestCaseA, unitTestFuncA);
-
-	testFramework();
-
-	return 0;
-}
+//int main()
+//{
+//	char* fpath = "str2hex.txt";
+//	int structSize = sizeof(CASE_3);
+//
+//	registerFunc(fpath, structSize, parseTestCaseA, unitTestFuncA);
+//
+//	testFramework();
+//
+//	return 0;
+//}

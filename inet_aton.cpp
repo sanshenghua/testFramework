@@ -1,9 +1,21 @@
+#include<stdio.h>
 #include "inet_aton.h"
+
+#define SUCCESS 0
+#define LENGTH_ERROR -1
+#define VALUE_ERROR -2
+#define INVAILD_CHAR -3
+#define NULL_POINT -4
 
 int inet_aton(const char *cp, unsigned int *lp)
 {
+	if(cp == NULL)
+	{
+		return NULL_POINT;
+	}
+
 	int dots = 0;
-    unsigned long acc = 0, addr = 0;
+    unsigned long singleSum = 0, totalSum = 0;
 	
     do{
 		char cc = *cp;
@@ -20,26 +32,26 @@ int inet_aton(const char *cp, unsigned int *lp)
 			case '7':
 			case '8':
 			case '9':
-				acc = acc * 10 + (cc - '0');
+				singleSum = singleSum * 10 + (cc - '0');
 				break;
 					
 			case '.':
 				if (++dots > 3)
 				{
-					return -1; //ip地址长度错误
+					return LENGTH_ERROR; //ip地址长度错误
 				}
 					
 			case '\0':
-				if (acc > 255) 
+				if (singleSum > 255) 
 				{
-					return -2; //ip地址数值错误
+					return VALUE_ERROR; //ip地址数值错误
 				}
-				addr = addr << 8 | acc; 
-				acc = 0;
+				totalSum = totalSum << 8 | singleSum; 
+				singleSum = 0;
 				break;
 					
 			default:
-				return -3; //非法字符
+				return INVAILD_CHAR; //非法字符
 		}
 
     } while(*cp++) ;
@@ -47,10 +59,10 @@ int inet_aton(const char *cp, unsigned int *lp)
     // 规范化ip地址
     if (dots < 3)
 	{
-		addr <<= 8 * (3 - dots) ;
+		totalSum <<= 8 * (3 - dots) ;
     }
 	
-	*lp = addr;
+	*lp = totalSum;
 	
-    return 0; //正常返回0
+    return SUCCESS; //正常返回0
 }

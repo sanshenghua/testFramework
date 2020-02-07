@@ -47,6 +47,12 @@
     <ClCompile Include="unitTest_str2hex.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="unitTest_bit_rotate.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="bit_rotate.h">
+      <Filter>头文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="inet_aton.txt">
