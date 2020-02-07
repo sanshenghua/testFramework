@@ -1,0 +1,1 @@
+int str2hex( const char str[],  char hexStr[], unsigned int sLen, unsigned int hLen);
