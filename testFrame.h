@@ -2,7 +2,7 @@
 #define TESTFRAME_H
 
 typedef void* (*getTestCaseFunc)(void* param);
-typedef void (* unitTestFunc)(void* testCase, int);
+typedef int (* unitTestFunc)(void* testCase, int);
 typedef void (*parseTestCase)(void* param, int);
 
 typedef struct TEST_PARAM
@@ -25,6 +25,10 @@ typedef struct TESTFW_CTX_T
 void registerFunc(char* fpath, int structSize, parseTestCase parse, unitTestFunc unitTest);
 
 int initial();
+
+int countFile(FILE *fp);
+
+void writeResult(FILE *fp, int returnValue, int idx);
 
 int testFramework();
 

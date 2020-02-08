@@ -27,6 +27,9 @@
     <ClInclude Include="str2hex.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="unitTest.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="inet_aton.cpp">
@@ -53,6 +56,9 @@
     <ClCompile Include="bit_rotate.h">
       <Filter>头文件</Filter>
     </ClCompile>
+    <ClCompile Include="unitTest_bit_rotate_file_model.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="inet_aton.txt">
@@ -62,6 +68,12 @@
       <Filter>资源文件</Filter>
     </Text>
     <Text Include="data.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="bit_rotate.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="result.txt">
       <Filter>资源文件</Filter>
     </Text>
   </ItemGroup>

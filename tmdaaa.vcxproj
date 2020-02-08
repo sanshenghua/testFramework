@@ -66,6 +66,7 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="str2hex.h" />
     <ClInclude Include="testFrame.h" />
+    <ClInclude Include="unitTest.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="inet_aton.cpp" />
@@ -75,11 +76,14 @@
     <ClCompile Include="testFrame.cpp" />
     <ClCompile Include="test_inet_aton.cpp" />
     <ClCompile Include="unitTest_bit_rotate.cpp" />
+    <ClCompile Include="unitTest_bit_rotate_file_model.cpp" />
     <ClCompile Include="unitTest_str2hex.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="bit_rotate.txt" />
     <Text Include="data.txt" />
     <Text Include="inet_aton.txt" />
+    <Text Include="result.txt" />
     <Text Include="str2hex.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

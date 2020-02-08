@@ -69,18 +69,35 @@ void destory()
 	return;
 }
 
+/* 将测试结果写入文件 */
+void writeResult(FILE *fp, int returnValue, int idx)
+{
+	if(returnValue == 0)
+	{
+		fprintf(fp, "用例编号 %d 成功\n", idx + 1);
+	}
+	else
+	{
+		fprintf(fp, "用例编号 %d 失败\n", idx + 1);
+	}
+}
+
 int testFramework()
 {
+	FILE *fpWrite = fopen("result.txt", "w");
+	int returnValue = 0;
+
 	/* 测试用例为文件形式 */
 	if(gTestCtx.fpath != "")
 	{
 		initial();
 
 		parseDataToStruct();
-
+		
 		for(int i = 0; i < gParam.count; i++)
 		{
-			gTestCtx.unitTest(gParam.caseTest, i);
+			returnValue = gTestCtx.unitTest(gParam.caseTest, i);
+			writeResult(fpWrite, returnValue, i);
 		}
 
 		destory();
@@ -91,9 +108,12 @@ int testFramework()
 		for(int i = 0; i < gTestCtx.structSizeOrArraySize; i++)
 		{
 			/* 为保持数组测试与文件测试方式一致，这里将指针传NULL */
-			gTestCtx.unitTest(NULL, i);
+			returnValue = gTestCtx.unitTest(NULL, i);
+			writeResult(fpWrite, returnValue, i);
 		}
 	}
+
+	fclose(fpWrite);
 
 	return 0;
 }

@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include"inet_aton.h"
 #include"testFrame.h"
+#include"unitTest.h"
 
 typedef struct TEST_CASE_2
 {
@@ -16,10 +17,10 @@ void parseTestCaseA(void* param, int idx)
 	CASE_2* case2 = (CASE_2*)test_param->caseTest;
 
 	fscanf(test_param->fp, "%s %u %d",case2[idx].input, &case2[idx].prediction, &case2[idx].returnValue);
-	printf("%s %u %d\n",case2[idx].input, case2[idx].prediction, case2[idx].returnValue);
+	DEBUGPRINT("%s %u %d\n",case2[idx].input, case2[idx].prediction, case2[idx].returnValue);
 }
 
-void unitTestFuncA(void* testCase, int idx)
+int unitTestFuncA(void* testCase, int idx)
 {
 	CASE_2* case2 = (CASE_2*)testCase;
 	unsigned int lp = 0;
@@ -28,13 +29,13 @@ void unitTestFuncA(void* testCase, int idx)
 
 	if(result == case2[idx].returnValue && lp == case2[idx].prediction)
 	{
-		printf("第%d个：%s 用例测试成功\n", idx + 1, case2[idx].input);
-		return;
+		DEBUGPRINT("第%d个：%s 用例测试成功\n", idx + 1, case2[idx].input);
+		return 0;
 	}
 
-	printf("第%d个：%s 用例测试失败\n", idx + 1, case2[idx].input);
+	DEBUGPRINT("第%d个：%s 用例测试失败\n", idx + 1, case2[idx].input);
 
-	return;
+	return idx + 1;
 }
 
 int main()
