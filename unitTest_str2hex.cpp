@@ -14,6 +14,35 @@ typedef struct TEST_CASE_3
 	int returnValue;
 }CASE_3;
 
+#define MAX_MSG_LENGTH 512
+ 
+/* fscanf会把字符串中含有转义字符的\读成\\,所以后处理将\\替换成\进行还原 */
+int replaceStr(char *sSrc, char *sMatchStr, char *sReplaceStr)
+{
+        int  StringLen;
+        char caNewString[MAX_MSG_LENGTH];
+ 
+        char *FindPos = strstr(sSrc, sMatchStr);
+        if((!FindPos) || (!sMatchStr))
+		{
+                return -1;
+		}
+
+        while( FindPos )
+        {
+                memset(caNewString, 0, sizeof(caNewString));
+                StringLen = FindPos - sSrc;
+                strncpy(caNewString, sSrc, StringLen);
+                strcat(caNewString, sReplaceStr);
+                strcat(caNewString, FindPos + strlen(sMatchStr));
+                strcpy(sSrc, caNewString);
+ 
+                FindPos = strstr(sSrc, sMatchStr);
+        }
+ 
+        return 0;
+}
+
 void parseTestCaseB(void* param, int idx)
 {	
 	PARAM* test_param = (PARAM*)param;
@@ -28,8 +57,9 @@ int unitTestFuncB(void* testCase, int idx)
 	CASE_3* case3 = (CASE_3*)testCase;
 	char hexStr[100];
 
-	int result = str2hex(case3[idx].input, hexStr, case3[idx].sLen, case3[idx].hLen);
+	replaceStr(case3[idx].input, "\\0", "\0" );
 
+	int result = str2hex(case3[idx].input, hexStr, case3[idx].sLen, case3[idx].hLen);
 	if(result == case3[idx].returnValue)
 	{
 		if(case3[idx].sLen == 0)
